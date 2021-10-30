@@ -12,10 +12,10 @@ with open('credintials.yml', 'r') as f:
 
 
 def get_database_connection():
-    db = mysql.connect(host="localhost",
-                       user="root",
+    db = mysql.connect(host="remotemysql.com",
+                       user="hUQ4c25UFV",
                        passwd="4@89kts5",
-                       database="Diploma",
+                       database="hUQ4c25UFV",
                        auth_plugin='mysql_native_password')
     cursor = db.cursor()
 
