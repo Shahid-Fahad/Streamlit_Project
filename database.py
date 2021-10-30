@@ -4,11 +4,11 @@ from mysql.connector.constants import ClientFlag
 from sqlalchemy import create_engine
 
 
-# with open('credintials.yml', 'r') as f:
-#     credintials = yaml.load(f, Loader=yaml.FullLoader)
-#     db_credintials = credintials['db']
-#     system_pass = credintials['system_pass']['admin']
-#     email_sender = credintials['email_sender']
+with open('credintials.yml', 'r') as f:
+    credintials = yaml.load(f, Loader=yaml.FullLoader)
+    db_credintials = credintials['db']
+    system_pass = credintials['system_pass']['admin']
+    email_sender = credintials['email_sender']
 
 
 def get_database_connection():
