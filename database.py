@@ -12,15 +12,11 @@ with open('credintials.yml', 'r') as f:
 
 
 def get_database_connection():
-    db = mysql.connect(host="remotemysql.com",
-                       user="hUQ4c25UFV",
-                       passwd="4@89kts5",
-                       database="hUQ4c25UFV",
-                       auth_plugin='mysql_native_password')
+    db = mysql.connect(host = db_credintials['host'],
+                      user = db_credintials['user'],
+                      passwd = db_credintials['passwd'],
+                      database = db_credintials['database'],
+                      auth_plugin= db_credintials['auth_plugin'])
     cursor = db.cursor()
-
-    cursor.execute("SHOW DATABASES")
-    databases = cursor.fetchall()
-    print(databases)
 
     return cursor, db
