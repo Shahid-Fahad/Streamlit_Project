@@ -19,4 +19,5 @@ def get_database_connection():
                       auth_plugin= db_credintials['auth_plugin'])
     cursor = db.cursor()
 
+    
     return cursor, db
