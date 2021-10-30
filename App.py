@@ -33,6 +33,18 @@ st.set_page_config(
 )
 cursor, db = get_database_connection()
 
+cursor.execute('''CREATE TABLE user (
+    id varchar(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    institution VARCHAR(30) NOT NULL,
+    ssc_gpa float,
+    hsc_gpa float,
+    email varchar(255),
+    address varchar(255),
+    contact_number varchar(255),
+    status varchar(255),
+    dos varchar(255)
+    )''')
 
 cols1, cols2, cols3 = st.columns((1, 7, 1))
 cols2.title("Diploma in Data Science Admission Portal")
