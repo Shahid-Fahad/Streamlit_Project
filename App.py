@@ -33,18 +33,18 @@ st.set_page_config(
 )
 cursor, db = get_database_connection()
 
-# cursor.execute('''CREATE TABLE user (
-#     id varchar(255) PRIMARY KEY,
-#     name VARCHAR(255) NOT NULL,
-#     institution VARCHAR(30) NOT NULL,
-#     ssc_gpa float,
-#     hsc_gpa float,
-#     email varchar(255),
-#     address varchar(255),
-#     contact_number varchar(255),
-#     status varchar(255),
-#     dos varchar(255)
-#     )''')
+cursor.execute('''CREATE TABLE user (
+    id varchar(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    institution VARCHAR(30) NOT NULL,
+    ssc_gpa float,
+    hsc_gpa float,
+    email varchar(255),
+    address varchar(255),
+    contact_number varchar(255),
+    status varchar(255),
+    dos varchar(255)
+    )''')
 
 cols1, cols2, cols3 = st.columns((1, 7, 1))
 cols2.title("Diploma in Data Science Admission Portal")
@@ -56,24 +56,24 @@ if ch=="Apply":
     with st.form(key="myform", clear_on_submit=True):
         name = st.text_input('Full Name')
         ins = st.text_input('Institution')
+        dep = st.text_input('Department')
+        cg = st.text_input('Cgpa')
         ssc = st.text_input('SSC GPA')
         hsc = st.text_input('HSC GPA')
         email = st.text_input('Email')
-        add = st.text_input('Address')
-        con = st.text_input('Contact Number(01*********)')
         dt = st.date_input("Apply Date")
         but1 = st.form_submit_button("Apply")
 
 
-    if but1 and (name=="" or ins=="" or ssc=="" or hsc=="" or email=="" or add=="" or con==""):
+    if but1 and (name=="" or ins=="" or ssc=="" or hsc=="" or email=="" or cg=="" or dep==""):
         st.warning("Fill Out Every Box Correctly")
     elif but1:
         num = 5
         unid = ''.join(secrets.choice(string.ascii_letters + string.digits) for x in range(num))
         status =0
-        query = '''INSERT into user(id,name,institution,ssc_gpa,hsc_gpa,email,address,contact_number,status,dos)
+        query = '''INSERT into user(id,name,institution,contact_number,address,ssc_gpa,hsc_gpa,email,status,dos)
                     VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
-        values = (unid, name, ins, ssc, hsc, email, add, con, status,dt)
+        values = (unid, name, ins, ssc, hsc, email, dep, cg, status,dt)
         cursor.execute(query, values)
         db.commit()
         st.balloons()
@@ -93,7 +93,7 @@ if ch=="Admin":
 
             date1 = st.date_input('Starting Date')
             date2 = st.date_input('Ending Date')
-            cursor.execute(f"select id,name,institution,ssc_gpa,hsc_gpa,status from user where dos between '{date1}' and '{date2}'")
+            cursor.execute(f"select id,name,institution,contact_number,address,ssc_gpa,hsc_gpa,status from user where dos between '{date1}' and '{date2}'")
 
             tables = cursor.fetchall()
             st.subheader(f"Pending Appliactions Between {date1} to {date2}")
@@ -102,8 +102,10 @@ if ch=="Admin":
                     with st.form(key=i[0]):
                         st.write(f'Name:  {i[1]}')
                         st.write(f'Insitution:  {i[2]}')
-                        st.write(f'SSC:  {i[3]}')
-                        st.write(f'HSC:  {i[4]}')
+                        st.write(f'Department:  {i[3]}')
+                        st.write(f'CGPA:  {i[4]}')
+                        st.write(f'SSC:  {i[5]}')
+                        st.write(f'HSC:  {i[6]}')
                         Accept = st.form_submit_button('Accept')
                         Reject = st.form_submit_button('Reject')
                         if Accept:
