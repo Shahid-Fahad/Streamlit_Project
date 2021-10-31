@@ -98,7 +98,7 @@ if ch=="Admin":
             tables = cursor.fetchall()
             st.subheader(f"Pending Appliactions Between {date1} to {date2}")
             for i in tables:
-                if i[5]=="0":
+                if i[7]=="0":
                     with st.form(key=i[0]):
                         st.write(f'Name:  {i[1]}')
                         st.write(f'Insitution:  {i[2]}')
