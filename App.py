@@ -73,7 +73,7 @@ if ch=="Apply":
         status =0
         query = '''INSERT into user(id,name,institution,contact_number,address,ssc_gpa,hsc_gpa,email,status,dos)
                     VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
-        values = (unid, name, ins, ssc, hsc, email, dep, cg, status,dt)
+        values = (unid, name, ins, dep, cg, ssc, hsc, email, status, dt)
         cursor.execute(query, values)
         db.commit()
         st.balloons()
